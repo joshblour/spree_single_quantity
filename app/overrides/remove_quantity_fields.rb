@@ -2,7 +2,7 @@ Deface::Override.new(
   :virtual_path  => "spree/products/_cart_form",
   :replace_contents => "div.add-to-cart",
   :text           => "<%= hidden_field_tag :quantity, 1 %>
-      <%= button_tag Spree.t(:add_to_cart), class: 'large primary', id: 'add-to-cart-button', type: :submit",
+      <%= button_tag Spree.t(:add_to_cart), class: 'large primary btn btn-success', id: 'add-to-cart-button', type: :submit",
   :name          => "remove_quantity_from_product_cart_form"
   )
   
@@ -17,15 +17,16 @@ Deface::Override.new(
 
 Deface::Override.new(
   :virtual_path  => "spree/orders/_line_item",
-  :remove       =>  "[data-hook='cart_item_quantity']",
+  :set_attributes =>  "[data-hook='cart_item_quantity']",
+  :attributes     => {class: 'hidden'},
   :name          => "remove_quantity_from_line_item"
   )
   
   
 Deface::Override.new(
   :virtual_path  => "spree/orders/_line_item",
-  :remove       =>  "[data-hook='cart_item_total']",
-  :name          => "remove_total_from_line_item"
+  :remove       =>  "[data-hook='cart_item_price']",
+  :name          => "remove_price_from_line_item"
   )
 
 Deface::Override.new(
@@ -39,16 +40,16 @@ Deface::Override.new(
   )
 
   Deface::Override.new(
-  :virtual_path  => "spree/shared/_order_details",
-    :replace_contents       =>  "[data-hook='order_item_price']",
-    :text => '',
-    :name          => "remove_price_from_cart_summary"
+    :virtual_path  => "spree/shared/_order_details",
+    :replace       =>  "[data-hook='order_item_price']",
+    :text         => '<td></td>',
+    :name          => "remove_price_from_cart_summary_line_item"
     )
 
 
   Deface::Override.new(
-  :virtual_path  => "spree/shared/_order_details",
-    :replace_contents       =>  "[data-hook='order_item_qty']",
-    :text => '',
+    :virtual_path  => "spree/shared/_order_details",
+    :replace       =>  "[data-hook='order_item_qty']",
+    :text         => '<td></td>',
     :name          => "remove_qty_from_cart_summary"
     )

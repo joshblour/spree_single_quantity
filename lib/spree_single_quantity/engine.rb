@@ -1,4 +1,6 @@
 module SpreeSingleQuantity
+  mattr_accessor :error_message
+  
   class Engine < Rails::Engine
     require 'spree/core'
     isolate_namespace Spree

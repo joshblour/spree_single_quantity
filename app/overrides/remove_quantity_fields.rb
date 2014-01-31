@@ -10,22 +10,25 @@ Deface::Override.new(
   :virtual_path  => "spree/orders/_form",
   :replace_contents=> "[data-hook='cart_items_headers']",
   :text           => "<th class='cart-item-description-header' colspan='2'><%= Spree.t(:item) %></th>
-                      <th class='cart-item-price-header'><%= Spree.t(:price) %></th>
-                      <th class='cart-item-delete-header'></th>",
+                      <th class='cart-item-price-header'></th>
+                      <th class='cart-item-quantity-header'></th>
+                      <th class='cart-item-total-header' colspan='2'><%= Spree.t(:price) %></th>",
   :name          => "remove_quantity_and_total_from_cart_header"
   )
 
+
 Deface::Override.new(
   :virtual_path  => "spree/orders/_line_item",
-  :set_attributes =>  "[data-hook='cart_item_quantity']",
-  :attributes     => {class: 'hidden'},
+  :surround_contents =>  "[data-hook='cart_item_quantity']",
+  :text           => "<div class='hidden'><%= render_original %></div>",
   :name          => "remove_quantity_from_line_item"
   )
   
   
 Deface::Override.new(
   :virtual_path  => "spree/orders/_line_item",
-  :remove       =>  "[data-hook='cart_item_price']",
+  :replace       =>  "[data-hook='cart_item_price']",
+  :text         => '<td></td>',
   :name          => "remove_price_from_line_item"
   )
 
